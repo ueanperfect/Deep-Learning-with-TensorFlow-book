@@ -32,8 +32,6 @@ def train_epoch(epoch):
 
     # Step4.loop
     for step, (x, y) in enumerate(train_dataset):
-
-
         with tf.GradientTape() as tape:
             # [b, 28, 28] => [b, 784]
             x = tf.reshape(x, (-1, 28*28))
