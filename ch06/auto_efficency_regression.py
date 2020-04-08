@@ -38,10 +38,10 @@ dataset
 #%%
 
 # 统计空白数据,并清除
-dataset.isna().sum()
-dataset = dataset.dropna()
-dataset.isna().sum()
-dataset
+dataset.isna().sum()#统计空白数据
+dataset = dataset.dropna()#删除空白数据
+h1 = dataset.isna().sum()#再次统计空白数据
+print(h1)
 #%%
 
 # 处理类别型数据，其中origin列代表了类别1,2,3,分布代表产地：美国、欧洲、日本
@@ -91,8 +91,8 @@ class Network(keras.Model):
     def __init__(self):
         super(Network, self).__init__()
         # 创建3个全连接层
-        self.fc1 = layers.Dense(64, activation='relu')
-        self.fc2 = layers.Dense(64, activation='relu')
+        self.fc1 = layers.Dense(8, activation='relu')
+        self.fc2 = layers.Dense(4, activation='relu')
         self.fc3 = layers.Dense(1)
 
     def call(self, inputs, training=None, mask=None):
@@ -105,7 +105,7 @@ class Network(keras.Model):
 
 model = Network()
 model.build(input_shape=(None, 9))
-model.summary()
+model.summary()#打印网络信息
 optimizer = tf.keras.optimizers.RMSprop(0.001)
 train_db = tf.data.Dataset.from_tensor_slices((normed_train_data.values, train_labels.values))
 train_db = train_db.shuffle(100).batch(32)
@@ -118,16 +118,18 @@ train_db = train_db.shuffle(100).batch(32)
 
 train_mae_losses = []
 test_mae_losses = []
+
+def clear():os.system('cls')
 for epoch in range(200):
     for step, (x,y) in enumerate(train_db):
-
         with tf.GradientTape() as tape:
             out = model(x)
             loss = tf.reduce_mean(losses.MSE(y, out))
-            mae_loss = tf.reduce_mean(losses.MAE(y, out)) 
+            mae_loss = tf.reduce_mean(losses.MAE(y, out))
 
         if step % 10 == 0:
             print(epoch, step, float(loss))
+            print(model.variables)
 
         grads = tape.gradient(loss, model.trainable_variables)
         optimizer.apply_gradients(zip(grads, model.trainable_variables))
@@ -144,11 +146,11 @@ plt.plot(train_mae_losses,  label='Train')
 
 plt.plot(test_mae_losses, label='Test')
 plt.legend()
- 
+
 # plt.ylim([0,10])
 plt.legend()
 plt.savefig('auto.svg')
-plt.show() 
+plt.show()
 
 
 

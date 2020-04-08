@@ -6,15 +6,13 @@ matplotlib.rcParams['font.size'] = 20
 matplotlib.rcParams['figure.titlesize'] = 20
 matplotlib.rcParams['figure.figsize'] = [9, 7]
 matplotlib.rcParams['font.family'] = ['STKaiTi']
-matplotlib.rcParams['axes.unicode_minus']=False 
+matplotlib.rcParams['axes.unicode_minus']=False
+
+
 import  tensorflow as tf
 from    tensorflow import keras
 from    tensorflow.keras import datasets, layers, optimizers
 import  os
-
-
-
-
 
 os.environ['TF_CPP_MIN_LOG_LEVEL']='2'
 print(tf.__version__)
@@ -27,7 +25,6 @@ def preprocess(x, y):
     x = tf.reshape(x, [-1, 28*28])
     y = tf.cast(y, dtype=tf.int32)
     y = tf.one_hot(y, depth=10)
-
     return x,y
 
 #%%
@@ -67,9 +64,6 @@ def main():
     # 256 => 10
     w3, b3 = tf.Variable(tf.random.normal([128, 10], stddev=0.1)), tf.Variable(tf.zeros([10]))
 
-
-
- 
 
     for step, (x,y) in enumerate(train_db):
  

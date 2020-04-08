@@ -1,13 +1,12 @@
 #%%
 
 import  tensorflow as tf
-from    tensorflow import keras
 from    tensorflow.keras import layers
 from    tensorflow.keras import datasets
 import  os
 
 
-#%% 
+#%%
 x = tf.random.normal([2,28*28])
 w1 = tf.Variable(tf.random.truncated_normal([784, 256], stddev=0.1))
 b1 = tf.Variable(tf.zeros([256]))

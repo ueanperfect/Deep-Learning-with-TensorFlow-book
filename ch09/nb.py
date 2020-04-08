@@ -1,9 +1,6 @@
 #%%
 import tensorflow as tf 
 from    tensorflow.keras import layers
-
-pip install -U scikit-learn
-
 #%%
 # 添加dropout操作
 x = tf.nn.dropout(x, rate=0.5)

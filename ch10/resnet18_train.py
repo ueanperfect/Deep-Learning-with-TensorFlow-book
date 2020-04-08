@@ -7,9 +7,6 @@ os.environ['TF_CPP_MIN_LOG_LEVEL']='2'
 tf.random.set_seed(2345)
 
 
-
-
-
 def preprocess(x, y):
     # 将数据映射到-1~1
     x = 2*tf.cast(x, dtype=tf.float32) / 255. - 1

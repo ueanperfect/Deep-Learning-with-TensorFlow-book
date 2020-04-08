@@ -26,9 +26,12 @@ y_test = tf.convert_to_tensor(y_test, dtype=tf.int32)
 
 train_db = tf.data.Dataset.from_tensor_slices((x,y))
 train_db = train_db.shuffle(1000).map(proprocess).batch(128)
+print(train_db)
+
 
 val_db = tf.data.Dataset.from_tensor_slices((x_test,y_test))
 val_db = val_db.shuffle(1000).map(proprocess).batch(128)
+print(val_db)
 
 x,y = next(iter(train_db))
 print(x.shape, y.shape)
