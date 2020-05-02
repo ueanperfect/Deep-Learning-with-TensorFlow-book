@@ -39,7 +39,7 @@ def decode_review(text):
 
 decode_review(x_train[8])
 
-#%%
+# #%%
 print('Indexing word vectors.')
 embeddings_index = {}
 GLOVE_DIR = r'/Users/faguangnanhai/Desktop/'
@@ -54,7 +54,7 @@ print('Found %s word vectors.' % len(embeddings_index))
 #%%
 len(embeddings_index.keys())
 len(word_index.keys())
-#%%
+# #%%
 MAX_NUM_WORDS = total_words
 # prepare embedding matrix
 num_words = min(MAX_NUM_WORDS, len(word_index))
@@ -86,11 +86,11 @@ print('x_train shape:', x_train.shape, tf.reduce_max(y_train), tf.reduce_min(y_t
 print('x_test shape:', x_test.shape)
 
 #%%
-
+#
 class MyRNN(keras.Model):
     # Cell方式构建多层网络
     def __init__(self, units):
-        super(MyRNN, self).__init__() 
+        super(MyRNN, self).__init__()
         # 词向量编码 [b, 80] => [b, 80, 100]
         self.embedding = layers.Embedding(total_words, embedding_len,
                                           input_length=max_review_len,
@@ -120,13 +120,11 @@ class MyRNN(keras.Model):
         x = self.outlayer(x,training)
         # p(y is pos|x)
         prob = tf.sigmoid(x)
-
         return prob
 
 def main():
     units = 512 # RNN状态向量长度f
-    epochs = 50 # 训练epochs
-
+    epochs = 10 # 训练epochs
     model = MyRNN(units)
     # 装配
     model.compile(optimizer = optimizers.Adam(0.001),
@@ -143,3 +141,4 @@ if __name__ == '__main__':
 
 
 #%%
+

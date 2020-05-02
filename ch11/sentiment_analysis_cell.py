@@ -5,7 +5,6 @@ import  numpy as np
 from    tensorflow import keras
 from    tensorflow.keras import layers, losses, optimizers, Sequential
 
-
 tf.random.set_seed(22)
 np.random.seed(22)
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
@@ -35,10 +34,11 @@ word_index["<UNUSED>"] = 3
 # 翻转编码表
 reverse_word_index = dict([(value, key) for (key, value) in word_index.items()])
 
-def decode_review(text):
+def decode_review(text):#文本转换句子函数
     return ' '.join([reverse_word_index.get(i, '?') for i in text])
 
-decode_review(x_train[8])
+p = decode_review(x_train[8])
+print(p)
 
 #%%
 
@@ -54,7 +54,6 @@ db_test = tf.data.Dataset.from_tensor_slices((x_test, y_test))
 db_test = db_test.batch(batchsz, drop_remainder=True)
 print('x_train shape:', x_train.shape, tf.reduce_max(y_train), tf.reduce_min(y_train))
 print('x_test shape:', x_test.shape)
-
 #%%
 
 class MyRNN(keras.Model):
